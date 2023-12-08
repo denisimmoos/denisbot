@@ -10,7 +10,7 @@ import openai
 import os
 
 # some farewell words
-byebyes = ['quit', 'exit', 'bye']
+byebyes = ['quit', 'exit', 'bye', 'adios']
 
 
 class DenisBot:
@@ -39,29 +39,11 @@ class DenisBot:
             s = s + '"'
         return s
 
-    def get_pet_name(self):
-        """returns a pet name"""
-
-        # get response from openai
-        response = openai.Completion.create(
-            model="gpt-3.5-turbo-instruct",
-            prompt="tell me a cute pet name use an adjective followed by one word",
-            temperature=1,
-            max_tokens=256,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0
-        )
-
-        # strip out spaces
-        pet_name = response.choices[0].text.replace(" ", "").replace("\n", "")
-
-        return pet_name 
-
     def exit_with_grace(self):
         """exits the bot with a nice message"""
 
-        pet_name = self.get_pet_name()
+        pet_name = self.get_response("tell me a cute pet name use an adjective followed by one word")
+        pet_name = pet_name.replace("\n","")
         pet_name = self.ensure_quotes(pet_name)
 
         print(f"Bye, bye talk to you later my { pet_name } ...")
