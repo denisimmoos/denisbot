@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 # coding: utf8
 
+"""
+Silly chatbot that can answer questions
+by using OpenAI's GPT-3.5 API
+In order to run you have to set the OPENAI_API_KEY
+environment variable to your OpenAI API key.
+"""
+
 import sys
 import openai
 import os
 
-# Silly chatbot that can answer questions  
-# by using OpenAI's GPT-3.5 API
-# In order to run you have to set the OPENAI_API_KEY
-# environment variable to your OpenAI API key.
 
 class DenisBot:
     """CLI Chatbot using OpenAI's API"""
@@ -19,11 +22,15 @@ class DenisBot:
 
     def start_our_bot(self, argv):
         """driver method to start our bot"""
-        
+
         if len(argv) == 0:
 
-            error = self.get_response("Start the sentence with 'Exiting because no arguments were passed you silly' followed by a funny petname in quotes") 
-            error = error.replace("\n","")
+            error = self.get_response(
+                "Start the sentence with "
+                + "'Exiting because no arguments were passed you silly'"
+                + "followed by a funny pet name in quotes"
+                )
+            error = error.replace("\n", "")
             print(error)
             sys.exit(1)
         else:
@@ -47,4 +54,3 @@ class DenisBot:
 if __name__ == "__main__":
     openai.api_key = os.getenv("OPENAI_API_KEY")
     DenisBot()
-
