@@ -1,10 +1,10 @@
 # Denis' Silly Chatbot
 
-This is a simple chatbot that can answer questions using OpenAI's GPT-3.5 API.
+This is a simple chatbot script that can answer questions using OpenAI's GPT-3.5 API.
 
 ## Usage
 
-To use the chatbot:
+To use the denisbot:
 
 1. Install the required packages: 
 
@@ -18,13 +18,13 @@ pip3 install openai
 export OPENAI_API_KEY="YOUR_API_KEY" 
 ```
 
-3. Run the chatbot script:
+3. Run the denisbot script:
 
 ```
 python3 denisbot.py
 ```
 
-4. Ask the chatbot a question and it will attempt to respond using GPT-3.5.
+4. Ask the denisbot a question and it will attempt to respond using GPT-3.5.
 
 ```
 # python3 denisbot.py
