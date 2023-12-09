@@ -12,7 +12,6 @@ import sys
 import openai
 import os
 
-
 class DenisBot:
     """CLI Chatbot using OpenAI's API"""
 
