@@ -26,6 +26,15 @@ python3 denisbot.py
 
 4. Ask the chatbot a question and it will attempt to respond using GPT-3.5.
 
+```
+# python3 denisbot.py
+>>> Please tell me a dad joke
+
+Why couldn't the bicycle stand up by itself? Because it was two-tired. 
+
+>>> (...)
+```
+
 ## Code Overview
 
 The main logic is in \`denisbot.py\`. It does the following:
