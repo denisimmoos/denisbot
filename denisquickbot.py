@@ -9,8 +9,12 @@ environment variable to your OpenAI API key.
 """
 
 import sys
-import openai
 import os
+from openai import OpenAI
+
+# get the API key from the environment variable
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 
 class DenisBot:
     """CLI Chatbot using OpenAI's API"""
@@ -47,18 +51,18 @@ class DenisBot:
     def get_response(self, user_question):
         """demonstrates a completion request with the openAI API"""
 
-        response = openai.Completion.create(
+        response = client.completions.create(
             model="gpt-3.5-turbo-instruct",
             prompt=user_question,
             temperature=1,
             max_tokens=256,
             top_p=1,
             frequency_penalty=0,
-            presence_penalty=0
-        )
+            presence_penalty=0)
+
+        # return the first response 
         return response.choices[0].text + "\n"
 
 
 if __name__ == "__main__":
-    openai.api_key = os.getenv("OPENAI_API_KEY")
     DenisBot()
