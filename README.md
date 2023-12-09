@@ -35,6 +35,20 @@ Why couldn't the bicycle stand up by itself? Because it was two-tired.
 >>> (...)
 ```
 
+5. You can add the denisbot as aliases to your shells profile
+
+```
+cd <CODE_DIR>
+git clone https://github.com/denisimmoos/denisbot.git
+```
+
+Add the following to your shells profile
+
+```
+alias dbot 'python3 <CODE_DIR>/denisbot/denisbot.py'
+alias qbot 'python3 <CODE_DIR>/denisbot/denisquickbot.py'
+```
+
 ## Code Overview
 
 The main logic is in \`denisbot.py\`. It does the following:
