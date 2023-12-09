@@ -45,8 +45,8 @@ git clone https://github.com/denisimmoos/denisbot.git
 Add the following to your shells profile
 
 ```
-alias dbot 'python3 <CODE_DIR>/denisbot/denisbot.py'
-alias qbot 'python3 <CODE_DIR>/denisbot/denisquickbot.py'
+alias dbot='python3 <CODE_DIR>/denisbot/denisbot.py'
+alias qbot='python3 <CODE_DIR>/denisbot/denisquickbot.py'
 ```
 
 ## Code Overview
