@@ -34,7 +34,16 @@ class DenisBot:
             print(error)
             sys.exit(1)
         else:
-            print(self.get_response(" ".join(argv)))
+            print(
+                self.get_response(
+                    " ".join(argv)
+                    + ", format the answer you give me in markup format"
+                    + " with a title, but do not use Title:"
+                    + " and add a space after # in the title"
+                    + " and line break after the title"
+                    + ", if you output code put it in markup backticks"
+                )
+            )
 
     def get_response(self, user_question):
         """demonstrates a completion request with the openAI API"""
