@@ -2,14 +2,18 @@
 # coding: utf8
 
 """
-Silly chatbot that can answer questions
-by using OpenAI's GPT-3.5 API
+Silly DenisBot.
+
+A chatbot that can answer questions by using OpenAI's GPT-3.5 API
 In order to run you have to set the OPENAI_API_KEY
 environment variable to your OpenAI API key.
 """
 
 import os
 import random
+import readline
+import sys
+
 from openai import OpenAI
 
 # get the API key from the environment variable
@@ -23,15 +27,67 @@ colors = ["Red", "Green", "Blue", "Yellow", "Purple"]
 
 
 class DenisBot:
-    """CLI Chatbot using OpenAI's API"""
+    """CLI Chatbot using OpenAI's API."""
 
     def __init__(self):
-        """constructor for DenisBot"""
+        """Bloody constructor for DenisBot."""
         self.start_our_bot()
 
-    def start_our_bot(self):
-        """driver method to start our bot"""
+    def scrollable_input(self, prompt=""):
+        """Make the input scrollable."""
+        readline.set_history_length(100)  # Set the maximum history length
+        history_index = readline.get_current_history_length()
 
+        while True:
+            try:
+                # Read the user input
+                user_input = input("\r" + prompt)
+
+                # If the user entered something
+                if user_input:
+                    # Add the user input to the history
+                    readline.add_history(user_input)
+                    history_index = readline.get_current_history_length()
+
+                    # Return the user input
+                    return user_input
+
+                else:
+                    # If the user entered nothing
+                    continue
+
+            except EOFError:
+                # Handle Ctrl-D (EOF)
+                print("\nBye, bye I will miss you ...")
+                exit(1)
+
+            key = input("\033[F")  # Move cursor up one line
+
+            if key == "\x1b[A":  # Up arrow key
+                if history_index > 1:
+                    history_index -= 1
+                    previous_input = readline.get_history_item(history_index)
+                    if previous_input:
+                        sys.stdout.write("\033[K")  # Clear current line
+                        sys.stdout.flush()
+                        print(
+                            "\r"
+                            + prompt
+                            + previous_input,
+                            end='',
+                            flush=True
+                        )
+            elif key == "\x1b[B":  # Down arrow key
+                if history_index < readline.get_current_history_length():
+                    history_index += 1
+                    next_input = readline.get_history_item(history_index)
+                    if next_input:
+                        sys.stdout.write("\033[K")  # Clear current line
+                        sys.stdout.flush()
+                        print("\r" + prompt + next_input, end='', flush=True)
+
+    def start_our_bot(self):
+        """Driver method to start our bot."""
         random_color = self.random_element(colors)
         silly_text = ">"
         colored_text = [
@@ -49,7 +105,7 @@ class DenisBot:
             ),
         ]
 
-        first_prompt = input(
+        first_prompt = self.scrollable_input(
             "Hi, ask me anything at the prompt or type 'quit'.\n"
             + f"{colored_text[0]}{colored_text[1]}{colored_text[2]} "
         )
@@ -60,17 +116,15 @@ class DenisBot:
             self.chat_loop(first_prompt)
 
     def random_element(self, array):
-        """Wow that's random"""
-
+        """Wow that's random."""
         return random.choice(array)
 
     def color_text(self, text, color_code):
-        """Wow tastes like skiddles"""
+        """Wow tastes like skiddles."""
         return "\033[38;5;{}m{}\033[0m".format(color_code, text)
 
     def ensure_quotes(self, s):
-        """ensures that the string s starts and ends with a quote"""
-
+        """Make sure that the string starts and ends with a quote."""
         if not s.startswith('"'):
             s = '"' + s
         if not s.endswith('"'):
@@ -78,8 +132,7 @@ class DenisBot:
         return s
 
     def exit_with_grace(self):
-        """exits the bot with a nice message"""
-
+        """Will exit the bot with a nice message."""
         pet_name = self.get_response(
             "tell me a cute pet name"
             + " use an adjective followed by one word"
@@ -98,8 +151,7 @@ class DenisBot:
         exit(0)
 
     def chat_loop(self, loop_prompt):
-        """main chat loop"""
-
+        """Chat loop."""
         if loop_prompt:
             print(self.get_response(loop_prompt))
 
@@ -121,7 +173,7 @@ class DenisBot:
             ]
 
             # get user input
-            user_input = input(
+            user_input = self.scrollable_input(
                 f"{colored_text[0]}"
                 + f"{colored_text[1]}"
                 + f"{colored_text[2]} "
@@ -131,8 +183,7 @@ class DenisBot:
             print(self.get_response(user_input))
 
     def get_response(self, user_question):
-        """demonstrates a completion request with the openAI API"""
-
+        """Demonstrates a completion request with the openAI API."""
         # if user_question is a byebye word, exit gracefully
         if user_question in byebyes:
             self.exit_with_grace()
